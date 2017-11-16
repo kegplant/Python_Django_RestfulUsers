@@ -13,6 +13,7 @@
   
 </head>
   <body>
+      <div class='container'>
       <table class="table">
           <thead>
               <tr>
@@ -47,7 +48,13 @@
           </tbody>
       </table>
         <a href='/users/new'>Add a new user</a>
-
+        <h3>books</h3>
+        {%if books%}
+        {%for book in books%}
+            <p>{{book.name}}</p>
+        {%endfor%}
+        {%endif%}
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

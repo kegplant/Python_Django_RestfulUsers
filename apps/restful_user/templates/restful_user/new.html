@@ -23,6 +23,12 @@
         </label>
         <button>Create</button>
     </form>
+    {%if messages%}
+    {%for message in messages%}
+        <p>Error: {{message}}</p>
+        <p>Tag:{{message.tags}}</p>
+    {%endfor%}
+    {%endif%}
     <a href='/users'>Go Back</a>
 </body>
 

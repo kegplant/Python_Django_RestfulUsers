@@ -1,10 +1,15 @@
 from django.shortcuts import render, HttpResponse, redirect
 from datetime import datetime
-from models import Users
+from models import Users, Books
+from django.contrib.messages import error
 # the index function is called when root is visited
 def index(request):#minimum
+    user=Users.objects.first()
+    # Books.objects.create(name='Python',user=user)
+    # Books.objects.create(name='C#',user=user)
     context={
-        'users':Users.objects.all()
+        'users':Users.objects.all(),
+        'books':Books.objects.all()
     }
     #return HttpResponse(response)
     return render(request,'restful_user/index.html',context)
@@ -40,11 +45,17 @@ def new(request):
     return render(request,'restful_user/new.html')
 def create(request):
     if request.method=='POST':
-        fname=request.POST['first_name']
-        lname=request.POST['last_name']
-        email=request.POST['email']
-        Users.objects.create(first_name=fname,last_name=lname,email=email)
-    return redirect('/users')
+        errors=Users.objects.basic_validator(request.POST)
+        if len(errors):
+            for tag,message in errors.items():
+                error(request,message,extra_tags=tag)
+            return redirect('/users/new')
+        else:
+            fname=request.POST['first_name']
+            lname=request.POST['last_name']
+            email=request.POST['email']
+            Users.objects.create(first_name=fname,last_name=lname,email=email)
+            return redirect('/users')
 def destroy(request,id):
     print "destroying"
     Users.objects.get(id=id).delete()
