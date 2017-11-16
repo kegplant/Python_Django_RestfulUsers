@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'ourApp/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+  
+</head>
+  <body>
+      <table class="table">
+          <thead>
+              <tr>
+                  <th>id</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Created At</th>
+                  <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              {%if users%}
+              {%for user in users%}
+              <tr>
+                  <td scope="row">{{user.id}}</td>
+                  <td><a href='/users/{{user.id}}'>{{user.first_name}} {{user.last_name}}</a></td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.created_at}}</td>
+                  <td>
+                      <a href='/users/{{user.id}}'>Show</a>
+                      <a href='/users/{{user.id}}/edit'>Edit</a>
+                      <a href='/users/{{user.id}}/destroy'>Delete</a>
+                  </td>
+              </tr>
+              {%endfor%}
+              {%endif%}
+              <tr>
+                  <td scope="row"></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+          </tbody>
+      </table>
+        <a href='/users/new'>Add a new user</a>
+
+
+
+        Hello World!
+        <h3>books</h3>
+        {%for book in books%}
+        <p>{{book.name}}</p>
+        {%endfor%}
+        <form action="/first_app/create" method="post">
+            {% csrf_token %} Blog Name:
+            <input type="text" name="name" placeholder="blog name">
+            <input type="submit" value="submit">
+        </form>
+        {{request.session.name}}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  </body>
+</html>
